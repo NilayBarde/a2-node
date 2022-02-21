@@ -9,7 +9,8 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const HOST = "cluster0.jarvx.mongodb.net";
 const DB_NAME = "cs5500-a1-db";
 const DB_QUERY = "retryWrites=true&w=majority";
-const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${DB_NAME}?${DB_QUERY}`;
+const connectionString =
+    "mongodb+srv://nilaybarde:oPpleA9vA3IPwAlE@cluster0.jarvx.mongodb.net/cs5500-a1-db?retryWrites=true&w=majority";
 // connect to the database
 mongoose.connect(connectionString);
 
