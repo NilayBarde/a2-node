@@ -3,12 +3,12 @@ import FollowModel from "../mongoose/follows/FollowModel";
 import Follow from "../models/follows/Follow";
 
 export default class FollowDao implements FollowDaoI {
-    private static followDao: followDao | null = null;
-    public static getInstance = (): followDao => {
-        if (followDao.followDao === null) {
-            followDao.followDao = new followDao();
+    private static followDao: FollowDao | null = null;
+    public static getInstance = (): FollowDao => {
+        if (FollowDao.followDao === null) {
+            FollowDao.followDao = new FollowDao();
         }
-        return followDao.followDao;
+        return FollowDao.followDao;
     };
     private constructor() {}
     findAllFollowing = async (uid: string): Promise<Follow[]> =>
