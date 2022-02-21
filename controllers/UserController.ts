@@ -3,7 +3,7 @@
  */
 import UserDao from "../daos/UserDao";
 import User from "../models/users/User";
-import {Express, Request, Response} from "express";
+import { Express, Request, Response } from "express";
 import UserControllerI from "../interfaces/UserControllerI";
 
 /**
@@ -31,33 +31,45 @@ export default class UserController implements UserControllerI {
      * @returns UserController
      */
     public static getInstance = (app: Express): UserController => {
-        if(UserController.userController === null) {
+        if (UserController.userController === null) {
             UserController.userController = new UserController();
-            
+
             // for testing without postman. Not RESTful
-            app.get("/api/users/create",
-                UserController.userController.createUser);
-            app.get("/api/users/:uid/delete",
-                UserController.userController.deleteUser);
-            app.get("/api/users/delete",
-                UserController.userController.deleteAllUsers);
-            
+            app.get(
+                "/api/users/create",
+                UserController.userController.createUser
+            );
+            app.get(
+                "/api/users/:uid/delete",
+                UserController.userController.deleteUser
+            );
+            app.get(
+                "/api/users/delete",
+                UserController.userController.deleteAllUsers
+            );
+
             // RESTful User Web service API
-            app.get("/api/users",
-                UserController.userController.findAllUsers);
-            app.get("/api/users/:uid",
-                UserController.userController.findUserById);
-            app.post("/api/users",
-                UserController.userController.createUser);
-            app.put("/api/users/:uid",
-                UserController.userController.updateUser);
-            app.delete("/api/users/:uid",
-                UserController.userController.deleteUser);
-            app.delete("/api/users",
-                UserController.userController.deleteAllUsers);
+            app.get("/api/users", UserController.userController.findAllUsers);
+            app.get(
+                "/api/users/:uid",
+                UserController.userController.findUserById
+            );
+            app.post("/api/users", UserController.userController.createUser);
+            app.put(
+                "/api/users/:uid",
+                UserController.userController.updateUser
+            );
+            app.delete(
+                "/api/users/:uid",
+                UserController.userController.deleteUser
+            );
+            app.delete(
+                "/api/users",
+                UserController.userController.deleteAllUsers
+            );
         }
         return UserController.userController;
-    }
+    };
 
     private constructor() {}
 
@@ -68,7 +80,8 @@ export default class UserController implements UserControllerI {
      * body formatted as JSON arrays containing the user objects
      */
     findAllUsers = (req: Request, res: Response) =>
-        UserController.userDao.findAllUsers()
+        UserController.userDao
+            .findAllUsers()
             .then((users: User[]) => res.json(users));
 
     /**
@@ -79,9 +92,10 @@ export default class UserController implements UserControllerI {
      * body formatted as JSON containing the user that matches the user ID
      */
     findUserById = (req: Request, res: Response) =>
-        UserController.userDao.findUserById(req.params.uid)
+        UserController.userDao
+            .findUserById(req.params.uid)
             .then((user: User) => res.json(user));
-    
+
     /**
      * Creates a new user instance
      * @param {Request} req Represents request from client, including body
@@ -92,9 +106,10 @@ export default class UserController implements UserControllerI {
      * database
      */
     createUser = (req: Request, res: Response) =>
-        UserController.userDao.createUser(req.body)
+        UserController.userDao
+            .createUser(req.body)
             .then((user: User) => res.json(user));
-    
+
     /**
      * Modifies an existing user instance
      * @param {Request} req Represents request from client, including path
@@ -103,9 +118,10 @@ export default class UserController implements UserControllerI {
      * on whether updating a user was successful or not
      */
     updateUser = (req: Request, res: Response) =>
-        UserController.userDao.updateUser(req.params.uid, req.body)
+        UserController.userDao
+            .updateUser(req.params.uid, req.body)
             .then((status) => res.send(status));
-    
+
     /**
      * Removes a user instance from the database
      * @param {Request} req Represents request from client, including path
@@ -114,28 +130,30 @@ export default class UserController implements UserControllerI {
      * on whether deleting a user was successful or not
      */
     deleteUser = (req: Request, res: Response) =>
-        UserController.userDao.deleteUser(req.params.uid)
+        UserController.userDao
+            .deleteUser(req.params.uid)
             .then((status) => res.send(status));
-    
+
     /**
      * Removes all user instances from the database. Useful for testing
-     * @param {Request} req Represents request from client 
+     * @param {Request} req Represents request from client
      * @param {Response} res Represents response to client, including status
      * on whether deleting all users was successful or not
      */
     deleteAllUsers = (req: Request, res: Response) =>
-        UserController.userDao.deleteAllUsers()
+        UserController.userDao
+            .deleteAllUsers()
             .then((status) => res.send(status));
-    
+
     login = (req: Request, res: Response) =>
-        UserController.userDao.findUserByCredentials(req.body.username, req.body.password)
-            .then(user => {
-                res.json(user)
+        UserController.userDao
+            .findUserByCredentials(req.body.username, req.body.password)
+            .then((user) => {
+                res.json(user);
             });
-    
+
     register = (req: Request, res: Response) =>
-        UserController.userDao.findUserByUsername(req.body.username)
-            .then(user => {
-                
-            })
-};
+        UserController.userDao
+            .findUserByUsername(req.body.username)
+            .then((user) => {});
+}

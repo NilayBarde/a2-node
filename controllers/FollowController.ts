@@ -4,6 +4,7 @@
 import { Express, Request, Response } from "express";
 import FollowDao from "../daos/FollowDao";
 import FollowControllerI from "../interfaces/FollowControllerI";
+import Follow from "../models/follows/Follow";
 
 /**
  * @class FollowController Implements RESTful Web service API for follows resource.
@@ -66,7 +67,7 @@ export default class FollowController implements FollowControllerI {
     findAllFollowing = (req: Request, res: Response) =>
         FollowController.followDao
             .findAllFollowing(req.params.uid)
-            .then((follows) => res.json(follows));
+            .then((following: Follow[]) => res.json(following));
 
     /**
      * Retrieves all users that follow another user from the database
@@ -78,7 +79,7 @@ export default class FollowController implements FollowControllerI {
     findAllFollowers = (req: Request, res: Response) =>
         FollowController.followDao
             .findAllFollowers(req.params.uid)
-            .then((follows) => res.json(follows));
+            .then((followers: Follow[]) => res.json(followers));
 
     /**
      * @param {Request} req Represents request from client, including the
@@ -91,7 +92,7 @@ export default class FollowController implements FollowControllerI {
     userFollowsUser = (req: Request, res: Response) =>
         FollowController.followDao
             .userFollowsUser(req.params.uid, req.params.uidf)
-            .then((follows) => res.json(follows));
+            .then((follow: Follow) => res.json(follow));
 
     /**
      * @param {Request} req Represents request from client, including the
