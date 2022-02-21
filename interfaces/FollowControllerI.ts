@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-export default interface LikeControllerI {
+export default interface FollowControllerI {
     findAllFollowing(req: Request, res: Response): void;
     findAllFollowers(req: Request, res: Response): void;
     userFollowsUser(req: Request, res: Response): void;
