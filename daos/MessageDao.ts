@@ -24,6 +24,7 @@ export default class MessageDao implements MessageDaoI {
         }
         return MessageDao.messageDao;
     };
+    private constructor() {}
 
     /**
      * Uses MessageModel to retrieve all message documents that a particular user
