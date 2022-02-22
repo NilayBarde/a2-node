@@ -1,5 +1,9 @@
 import Section from "../mongoose/sections/Section";
 
+/**
+ * @file Declares API for Sections related data access object methods
+ */
+
 export default interface SectionDao {
     findSectionById(sid: string): Promise<Section>;
     findSectionByIdDeep(sid: string): Promise<Section>;

@@ -12,4 +12,4 @@ export default interface CourseDao {
     updateCourse(cid: string, course: Course): Promise<any>;
     addSectionToCourse(cid: string, sid: string): Promise<any>;
     removeSectionFromCourse(cid: string, sid: string): Promise<any>;
-};
+}

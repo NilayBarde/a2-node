@@ -138,11 +138,26 @@ export default class MessageController implements MessageControllerI {
             .findAllMessages()
             .then((messages: Message[]) => res.json(messages));
 
+    /**
+     * Retrieves all message documents from the database and returns an array of messages that one user has sent to another
+     * @param {Request} req Represents request from client
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the message objects (including
+     * all messages between all users)
+     */
+
     findSentMessagesUser = (req: Request, res: Response) =>
         MessageController.messageDao
             .findSentMessagesUser(req.params.uid, req.params.uidf)
             .then((messages: Message[]) => res.json(messages));
 
+    /**
+     * Retrieves all message documents from the database and returns an array of messages that one user has received from another
+     * @param {Request} req Represents request from client
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the message objects (including
+     * all messages between all users)
+     */
     findReceivedMessagesUser = (req: Request, res: Response) =>
         MessageController.messageDao
             .findReceivedMessagesUser(req.params.uid, req.params.uidf)

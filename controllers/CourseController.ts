@@ -1,5 +1,5 @@
 /**
- * @file CourseController
+ * @file Controller RESTful Web service API for course resource
  */
 
 import CourseControllerI from "../interfaces/CourseControllerI";

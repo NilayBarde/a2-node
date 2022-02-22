@@ -1,4 +1,8 @@
-import {Request, Response} from "express";
+/**
+ * @file Declares Controller RESTful Web service API for Course resource
+ */
+
+import { Request, Response } from "express";
 
 export default interface CourseController {
     findAllCourses(req: Request, res: Response): Promise<any>;
@@ -10,4 +14,4 @@ export default interface CourseController {
     updateCourse(req: Request, res: Response): Promise<any>;
     addSectionToCourse(req: Request, res: Response): Promise<any>;
     removeSectionFromCourse(req: Request, res: Response): Promise<any>;
-};
+}
