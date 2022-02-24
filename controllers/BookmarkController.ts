@@ -12,7 +12,7 @@ import Bookmark from "../models/bookmarks/Bookmark";
  * <ul>
  *     <li>GET /api/user/:uid/bookmarks to retrieve all tuits bookmarked by a user
  *     </li>
- *     <li>GET /api/user/:tid/bookmarks to retrieve all users that bookmarked a tuit
+ *     <li>GET /api/tuits/:tid/bookmarks to retrieve all users that bookmarked a tuit
  *     </li>
  *     <li>GET /api/bookmarks to retrieve all the bookmark documents for testing purpose
  *     </li>
