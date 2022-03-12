@@ -4,4 +4,4 @@ build
 data
 out
 CS5500SP22_A2.postman_collection.json
-env
+.env
