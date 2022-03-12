@@ -67,8 +67,8 @@ export default class UserController implements UserControllerI {
                 "/api/users",
                 UserController.userController.deleteAllUsers
             );
-            app.delete(
-                "/users/:username",
+            app.get(
+                "/users/username/:username/delete",
                 UserController.userController.deleteUsersByUsername
             );
         }
