@@ -69,7 +69,7 @@ export default class UserController implements UserControllerI {
             );
             app.delete(
                 "/users/:username",
-                UserController.userController.deleteUserByUsername
+                UserController.userController.deleteUsersByUsername
             );
         }
         return UserController.userController;
