@@ -1,3 +1,6 @@
+/**
+ * @file Implements model to represent tuits.
+ */
 import User from "../users/User";
 import Stats from "./Stats";
 
