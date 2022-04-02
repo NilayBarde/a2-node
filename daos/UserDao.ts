@@ -11,7 +11,7 @@ import UserDaoI from "../interfaces/UserDaoI";
  * of Users
  * @property {UserDao} userDao Private single instance of UserDao
  */
-export default class UserDao implements UserDaoI {
+export class UserDao implements UserDaoI {
     private static userDao: UserDao | null = null;
 
     /**

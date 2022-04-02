@@ -1,4 +1,4 @@
-import UserDao from "../daos/UserDao";
+import {UserDao} from "../daos/UserDao";
 import mongoose from "mongoose";
 
 const userDao: UserDao = UserDao.getInstance();
@@ -26,7 +26,7 @@ export const login = (u: string, p: string) =>
     .then(user => user)
     .catch(e => e)
 
-export const register = (u: string, p: string, e: string) =>
+export const signup = (u: string, p: string, e: string) =>
   userDao.findUserByUsername(u)
     .then(user => {
       if (user) {
@@ -77,7 +77,7 @@ export const giveRaise = (raise: number) => {
 // initializeSalaries(50000)
 //   .then(results => console.log(results));
 //
-// register('alice008', 'alice234', 'alice234@gmail.com')
+// signup('alice008', 'alice234', 'alice234@gmail.com')
 //   .then(user => console.log(user))
 //
 login('alice008', 'alice234')

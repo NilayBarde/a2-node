@@ -1,5 +1,5 @@
 import * as algo from './tuiterAlgorithm';
-import Tuit from "../../models/tuits/Tuit";
+import {Tuit} from "../../models/tuits/Tuit";
 import User from "../../models/users/User";
 
 const user: User = {username: 'alice', password: 'alice123', email: 'alice@wonderland.com'};

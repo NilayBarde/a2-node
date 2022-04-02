@@ -1,25 +1,83 @@
-import {Request, Response, Express} from "express";
-import UserDao from "../daos/UserDao";
-const bcrypt = require('bcrypt');
+import {Express, Request, Response} from "express";
+import bodyParser from "body-parser";
+import {AuthenticationControllerI} from "../interfaces/AuthenticationControllerI";
+import {UserDao} from "../daos/UserDao";
+import bcrypt from "bcrypt";
 const saltRounds = 10;
 
-const AuthenticationController = (app: Express) => {
-    
-    const userDao: UserDao = UserDao.getInstance();
+export class AuthenticationController implements AuthenticationControllerI {
+    private static userDao: UserDao;
+    private static authController: AuthenticationController | null = null;
 
-    const login = async (req: Request, res: Response) => {
+    private constructor() {}
 
-        console.log("==> login")
-        console.log("==> req.session")
-        console.log(req.session)
+    /**
+     * @param app {Express} the Express instance to attach the controller to
+     * @return {UserController} the singleton UserController instance
+     */
+    public static getInstance(app: Express): AuthenticationController {
+        if (AuthenticationController.authController === null) {
+            AuthenticationController.authController = new AuthenticationController();
+            AuthenticationController.userDao = UserDao.getInstance();
 
+            app.use(bodyParser.urlencoded({extended: false}));
+            app.use(bodyParser.json());
+
+            app.post("/auth/signup", AuthenticationController.authController.signup);
+            app.post("/auth/profile", AuthenticationController.authController.profile);
+            app.post("/auth/login", AuthenticationController.authController.login);
+            app.post("/auth/logout", AuthenticationController.authController.logout);
+        }
+        return AuthenticationController.authController;
+    }
+
+    public async signup(req: Request, res: Response): Promise<void> {
+        console.info(`auth: signup() ${req.body}`)
+
+        const newUser = req.body;
+        const password = newUser.password;
+        newUser.password = await bcrypt.hash(password, saltRounds);
+
+        const existingUser = await AuthenticationController.userDao
+            .findUserByUsername(req.body.username);
+        if (existingUser) {
+            res.sendStatus(403);
+            return;
+        } else {
+            const insertedUser = await AuthenticationController.userDao
+                .createUser(newUser);
+            insertedUser.password = '*****';
+            // @ts-ignore
+            req.session['profile'] = insertedUser;
+            res.json(insertedUser);
+        }
+    }
+
+    public profile(req: Request, res: Response): void {
+        // @ts-ignore
+        const profile = req.session['profile'];
+        if (profile) {
+            profile.password = "*****";
+            res.json(profile);
+        } else {
+            res.sendStatus(403);
+        }
+    }
+
+    public async login(req: Request, res: Response): Promise<void> {
         const user = req.body;
         const username = user.username;
         const password = user.password;
-        console.log(password)
-        const existingUser = await userDao
+        const existingUser = await AuthenticationController.userDao
             .findUserByUsername(username);
-        const match = await bcrypt.compare(password, existingUser.password);
+
+        if (!existingUser) {
+            res.sendStatus(403);
+            return;
+        }
+
+        const match = await bcrypt
+            .compare(password, existingUser.password);
 
         if (match) {
             existingUser.password = '*****';
@@ -29,53 +87,12 @@ const AuthenticationController = (app: Express) => {
         } else {
             res.sendStatus(403);
         }
+
     }
 
-    const register = async (req: Request, res: Response) => {
-        console.log("==> register")
-        console.log("==> req.session")
-        console.log(req.session)
-
-        const newUser = req.body;
-        const password = newUser.password;
-        const hash = await bcrypt.hash(password, saltRounds);
-        newUser.password = hash;
-
-        const existingUser = await userDao
-            .findUserByUsername(req.body.username);
-        if (existingUser) {
-            res.sendStatus(403);
-            return;
-        } else {
-            const insertedUser = await userDao
-                .createUser(newUser);
-            insertedUser.password = '';
-            // @ts-ignore
-            req.session['profile'] = insertedUser;
-            res.json(insertedUser);
-        }
-    }
-
-    const profile = (req: Request, res: Response) => {
-        // @ts-ignore
-        const profile = req.session['profile'];
-        if (profile) {
-            res.json(profile);
-        } else {
-            res.sendStatus(403);
-        }
-    }
-
-    const logout = (req: Request, res: Response) => {
+    public logout(req: Request, res: Response) {
         // @ts-ignore
         req.session.destroy();
         res.sendStatus(200);
     }
-
-    app.post("/api/auth/login", login);
-    app.post("/api/auth/register", register);
-    app.post("/api/auth/profile", profile);
-    app.post("/api/auth/logout", logout);
 }
-
-export default AuthenticationController;

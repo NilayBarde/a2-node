@@ -13,10 +13,10 @@
 import express, {Request, Response} from 'express';
 import CourseController from "./controllers/CourseController";
 import UserController from "./controllers/UserController";
-import TuitController from "./controllers/TuitController";
+import {TuitController} from "./controllers/TuitController";
 import LikeController from "./controllers/LikeController";
 import SessionController from "./controllers/SessionController";
-import AuthenticationController from "./controllers/AuthenticationController";
+import {AuthenticationController} from "./controllers/AuthenticationController";
 import mongoose from "mongoose";
 import GroupController from "./controllers/GroupController";
 const cors = require("cors");
@@ -40,20 +40,33 @@ app.use(cors({
     origin: process.env.CORS_ORIGIN
 }));
 
+app.use(function (req: Request, res: Response, next ) {
+    res.setHeader('Access-Control-Allow-Origin', req.header('origin') || '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
+    // @ts-ignore
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+})
+
 let sess = {
-    secret: process.env.EXPRESS_SESSION_SECRET,
+    secret: process.env.EXPRESS_SESSION_SECRET || 'secret',
     saveUninitialized: true,
     resave: true,
+    proxy: true,
     cookie: {
-        sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
-        secure: process.env.NODE_ENV === "production",
+        secure: false,
+        sameSite: undefined
     }
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.ENV === 'PRODUCTION') {
+    console.log("Running in PRODUCTION Mode!");
     app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true // serve secure cookies
+    // @ts-ignore
+    sess.cookie.sameSite = 'none'
 }
-
 app.use(session(sess))
 app.use(express.json());
 
@@ -68,8 +81,8 @@ const courseController = new CourseController(app);
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
 const likesController = LikeController.getInstance(app);
+const authController = AuthenticationController.getInstance(app);
 SessionController(app);
-AuthenticationController(app);
 GroupController(app);
 /**
  * Start a server listening at port 4000 locally

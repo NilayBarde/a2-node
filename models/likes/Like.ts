@@ -2,7 +2,7 @@
  * @file Declares Like data type representing relationship between
  * users and tuits, as in user likes a tuit
  */
-import Tuit from "../tuits/Tuit";
+import {Tuit} from "../tuits/Tuit";
 import User from "../users/User";
 
 /**
