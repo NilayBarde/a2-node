@@ -51,13 +51,13 @@
              app.use(bodyParser.urlencoded({extended: false}));
              app.use(bodyParser.json());
  
-             app.post("/tuits", TuitController.tuitController.createTuitByUser);
-             app.post("/users/:uid/tuits", TuitController.tuitController.createTuitByUser);
-             app.get("/tuits", TuitController.tuitController.findAllTuits);
-             app.get("/tuits/:tid", TuitController.tuitController.findTuitById);
-             app.get("/users/:uid/tuits", TuitController.tuitController.findAllTuitsByUser);
-             app.put("/tuits/:tid", TuitController.tuitController.updateTuit);
-             app.delete("/tuits/:tid", TuitController.tuitController.deleteTuit);
+             app.post("/api/tuits", TuitController.tuitController.createTuitByUser);
+             app.post("/api/users/:uid/tuits", TuitController.tuitController.createTuitByUser);
+             app.get("/api/tuits", TuitController.tuitController.findAllTuits);
+             app.get("/api/tuits/:tid", TuitController.tuitController.findTuitById);
+             app.get("/api/users/:uid/tuits", TuitController.tuitController.findAllTuitsByUser);
+             app.put("/api/tuits/:tid", TuitController.tuitController.updateTuit);
+             app.delete("/api/tuits/:tid", TuitController.tuitController.deleteTuit);
          }
          return TuitController.tuitController;
      }

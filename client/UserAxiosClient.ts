@@ -7,17 +7,17 @@ const findAllUsers = async () =>
     await axios.get('/users');
 
 const findUserById = async (uid: string) => {
-  return await axios.get(`/users/${uid}`);
+  return await axios.get(`/api/users/${uid}`);
 }
 
 const createUser = async (user: User) =>
-  await axios.post('/users', user);
+  await axios.post('/api/users', user);
 
 const updateUser = async (uid: string, user: User) =>
-  await axios.put(`/users/${uid}`, user);
+  await axios.put(`/api/users/${uid}`, user);
 
 const deleteUser = async (uid: string) =>
-  await axios.delete(`/users/${uid}`);
+  await axios.delete(`/api/users/${uid}`);
 
 // deleteUser('6206b4ff02c280db0f2e62b5')
 //   .then(response => console.log(response.data));
