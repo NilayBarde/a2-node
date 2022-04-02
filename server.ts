@@ -13,10 +13,10 @@
 import express, {Request, Response} from 'express';
 import CourseController from "./controllers/CourseController";
 import UserController from "./controllers/UserController";
-import {TuitController} from "./controllers/TuitController";
+import TuitController from "./controllers/TuitController";
 import LikeController from "./controllers/LikeController";
 import SessionController from "./controllers/SessionController";
-import {AuthenticationController} from "./controllers/AuthenticationController";
+import AuthenticationController from "./controllers/AuthenticationController";
 import mongoose from "mongoose";
 import GroupController from "./controllers/GroupController";
 const cors = require("cors");
@@ -81,7 +81,7 @@ const courseController = new CourseController(app);
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
 const likesController = LikeController.getInstance(app);
-const authController = AuthenticationController.getInstance(app);
+const authController = AuthenticationController(app);
 SessionController(app);
 GroupController(app);
 /**

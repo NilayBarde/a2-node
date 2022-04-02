@@ -1,5 +1,5 @@
 import {Request, Response, Express} from "express";
-import {UserDao} from "../daos/UserDao";
+import UserDao from "../daos/UserDao";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 

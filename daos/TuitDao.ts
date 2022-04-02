@@ -3,7 +3,7 @@
  * to integrate with MongoDB
  */
  import {TuitModel} from "../mongoose/tuits/TuitModel";
- import {Tuit} from "../models/tuits/tuit";
+ import Tuit from "../models/tuits/tuit";
  import TuitDaoI from "../interfaces/TuitDaoI";
  import Stats from "../models/tuits/stats";
  

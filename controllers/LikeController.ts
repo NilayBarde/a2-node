@@ -5,7 +5,7 @@
  import LikeDao from "../daos/LikeDao";
  import LikeControllerI from "../interfaces/LikeControllerI";
  import Like from "../models/likes/like";
- import {TuitDao} from "../daos/TuitDao";
+ import TuitDao from "../daos/TuitDao";
  
  /**
   * @class LikeController Implements RESTful Web service API for likes resource.
