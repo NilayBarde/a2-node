@@ -38,7 +38,7 @@ mongoose.connect(connectionString);
 const app = express();
 app.use(cors({
 	credentials: true,
-	origin: "https://graceful-llama-314586.netlify.app"
+	origin: "http://localhost:3000"
 }))
 app.use(function (req: Request, res: Response, next ) {
     res.setHeader('Access-Control-Allow-Origin', req.header('origin') || '*');
