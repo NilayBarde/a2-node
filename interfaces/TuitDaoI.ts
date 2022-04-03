@@ -1,5 +1,5 @@
 import Tuit from "../models/tuits/Tuit";
-import Stats from "../models/tuits/stats";
+import Stats from "../models/tuits/Stats";
 
 /**
  * @file Declares API for Tuits related data access object methods

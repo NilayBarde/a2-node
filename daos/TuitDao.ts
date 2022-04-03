@@ -3,9 +3,9 @@
  * to integrate with MongoDB
  */
  import {TuitModel} from "../mongoose/tuits/TuitModel";
- import Tuit from "../models/tuits/tuit";
+ import Tuit from "../models/tuits/Tuit";
  import TuitDaoI from "../interfaces/TuitDaoI";
- import Stats from "../models/tuits/stats";
+ import Stats from "../models/tuits/Stats";
  
  /**
   * @class TuitDao Implements Data Access Object managing data storage

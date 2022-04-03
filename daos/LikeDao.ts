@@ -4,7 +4,7 @@
  */
  import LikeDaoI from "../interfaces/LikeDaoI";
  import LikeModel from "../mongoose/likes/LikeModel";
- import Like from "../models/likes/like";
+ import Like from "../models/likes/Like";
  
  /**
   * @class LikeDao Implements Data Access Object managing data storage

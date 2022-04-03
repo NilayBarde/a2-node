@@ -4,7 +4,7 @@
  import {Express, Request, Response} from "express";
  import LikeDao from "../daos/LikeDao";
  import LikeControllerI from "../interfaces/LikeControllerI";
- import Like from "../models/likes/like";
+ import Like from "../models/likes/Like";
  import TuitDao from "../daos/TuitDao";
  import DislikeDao from "../daos/DislikeDao";
  

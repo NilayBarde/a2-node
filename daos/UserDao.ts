@@ -3,7 +3,7 @@
  * to integrate with MongoDB
  */
  import UserModel from "../mongoose/users/UserModel";
- import User from "../models/users/user";
+ import User from "../models/users/User";
  import UserDaoI from "../interfaces/UserDaoI";
  
  /**
