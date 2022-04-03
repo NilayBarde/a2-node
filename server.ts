@@ -37,10 +37,9 @@ mongoose.connect(connectionString);
 
 const app = express();
 app.use(cors({
-    credentials: true,
-    origin: process.env.CORS_ORIGIN
-}));
-
+	credentials: true,
+	origin: "http://localhost:3000"
+}))
 app.use(function (req: Request, res: Response, next ) {
     res.setHeader('Access-Control-Allow-Origin', req.header('origin') || '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
