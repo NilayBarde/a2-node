@@ -41,7 +41,12 @@
       * @returns Promise To be notified when the dislikes are retrieved from database
       */
      findAllTuitsDislikedByUser = async (uid: string): Promise<Dislike[]> => {
-         return DislikeModel.find({dislikedBy: uid}).populate("tuit").exec();
+         return DislikeModel.find({dislikedBy: uid}).populate({
+             path: "tuit",
+             populate: {
+                 path: "postedBy"
+             }
+         }).exec();
      }
  
      /**
